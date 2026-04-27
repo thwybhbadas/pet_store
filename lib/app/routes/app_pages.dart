@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:pets_store/app/modules/home/views/crud_view.dart';
 
 import '../modules/details/bindings/details_binding.dart';
 import '../modules/details/views/details_view.dart';
@@ -16,6 +17,11 @@ class AppPages {
     GetPage(
       name: _Paths.HOME,
       page: () =>  HomeView(),
+      binding: HomeBinding(),
+    ),
+     GetPage(
+      name: _Paths.CRUD,
+      page: () =>  CrudView(),
       binding: HomeBinding(),
     ),
     GetPage(

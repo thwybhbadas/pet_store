@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:pets_store/app/modules/home/widgets/pet_card_widget.dart';
+// import 'package:pets_store/app/modules/home/widgets/pet_card_widget.dart';
+import 'package:pets_store/app/routes/app_pages.dart';
 
 import '../controllers/home_controller.dart';
 
@@ -12,6 +13,9 @@ class HomeView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(onPressed: (){
+        Get.toNamed(Routes.CRUD);
+      }),
       appBar: AppBar(title: Text("Pets")),
 
       body: Column(
@@ -46,7 +50,32 @@ class HomeView extends GetView<HomeController> {
                   return AnimatedOpacity(
                     duration: Duration(milliseconds: 400),
                     opacity: 1,
-                    child: PetCard(pet: pet),
+                    child: Card(
+      margin: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+      elevation: 3,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      child: ListTile(
+        leading: CircleAvatar(
+          child: Text((pet.name.isNotEmpty) ? pet.name[0].toUpperCase() : "?"),
+        ),
+        title: Text(pet.name, style: TextStyle(fontWeight: FontWeight.bold)),
+        subtitle: Text(pet.status),
+         // 🗑️ Delete
+                trailing: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+
+
+                    IconButton(
+                      icon: Icon(Icons.delete, color: Colors.red),
+                      onPressed: () {
+                        controller.deletePet(pet.id);
+                      },
+                    ),
+                  ],
+                ),
+      ),
+    ),
                   );
                   // return TweenAnimationBuilder(
                   //   duration: Duration(milliseconds: 600),

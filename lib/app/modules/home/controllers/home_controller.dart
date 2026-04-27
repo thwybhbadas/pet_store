@@ -41,4 +41,45 @@ class HomeController extends GetxController {
     selectedStatus.value = status;
     fetchPets();
   }
+
+   //  ADD PET
+  void addPet(String name) async {
+    try {
+      isLoading(true);
+
+      final data = {
+        "id": DateTime.now().millisecondsSinceEpoch,
+        "name": name,
+        "status": "available"
+      };
+
+      final response = await api.addPet(data);
+
+      if (response.statusCode == 200) {
+        Get.snackbar("Success", "Pet Added");
+      } else {
+        Get.snackbar("Error", "Failed to add");
+      }
+    } finally {
+      isLoading(false);
+    }
+  }
+   
+   // DELETE PET
+  void deletePet(int id) async {
+    try {
+      isLoading(true);
+
+      final response = await api.deletePet(id);
+
+      if (response.statusCode == 200) {
+        Get.snackbar("Deleted", "Pet Removed");
+      } else {
+        Get.snackbar("Error", "Failed to delete");
+      }
+    } finally {
+      isLoading(false);
+    }
+  }
+
 }
